@@ -10,25 +10,51 @@
 
 <body>
     <h2>Pregunta 1: </h2>
+
+    <p>Escoge la persona base</p>
     <select class="desplegable">
         <option value="">-</option>
     </select>
 
+    <p>Di cuantas personas</p>
     <input type="text" class="inputK">
 
     <button class="btnEjecutar">Ejecutar 1</button>
 
-    <ul class="lista-Similitud"></ul>
+    <ul class="lista-Similitud"> Lista personas compatibles con la seleccionada</ul>
 
 
     <h2>Pregunta 2: </h2>
 
+    <p>Di cuantas ciudades similares al grupo de personas anterior</p>
     <input type="text" class="inputKD">
     <button class="btnEjecutar2">Ejecutar 2</button>
 
-    <ul class="lista-SimilitudDestions"></ul>
+    <ul class="lista-SimilitudDestions"> Lista ciudades compatibles con el grupo de personas</ul>
 
-    <div class="contenedorSimilitudes"> </div>
+
+
+    <h2>Pregunta 3: </h2>
+
+    <p>Persona base</p>
+    <select class="desplegablePersona3">
+        <option value="">-</option>
+    </select>
+    <input type="text" class="inputKD3">
+    <button class="btnEjecutar3">Ejecutar 3</button>
+    <ul class="lista-SimilitudPersona3"> Lista ciudades compatibles con esa unica persona</ul>
+
+
+
+    <h2>Pregunta 4: </h2>
+
+    <p>Escoge una ciudad base</p>
+    <select class="desplegableCiudades">
+        <option value="">-</option>
+    </select>
+    <button class="btnEjecutar4">Ejecutar 4</button>
+    <ul class="lista-SimilitudPersona4"> Lista de personas compatibles con esa unica ciudad</ul>
+
 
 
     <script src="./librerias/jquery-3.4.1.js"></script>
