@@ -164,7 +164,7 @@ function successFunctionViajes(data) {
 
         s3.appendChild(opciones);
 
-        informacion.push(arregloDeLista);
+        //informacion.push(arregloDeLista);
     }
 
     //Llenar el option de la pregunta 6
@@ -182,7 +182,7 @@ function successFunctionViajes(data) {
 
         sPersona6.appendChild(opciones);
 
-        informacion.push(arregloDeLista);
+        //informacion.push(arregloDeLista);
     }
 }
 
@@ -226,7 +226,7 @@ function successFunctionDestinos(data) {
 
         sCiudades5.appendChild(opciones);
 
-        informacionDestinos.push(arregloDeLista);
+        //informacionDestinos.push(arregloDeLista);
     }
 
     //Llenar option pregunta 7
@@ -244,7 +244,7 @@ function successFunctionDestinos(data) {
 
         sCiudades7.appendChild(opciones);
 
-        informacionDestinos.push(arregloDeLista);
+        //informacionDestinos.push(arregloDeLista);
     }
 
 
@@ -694,10 +694,7 @@ function formulaCosenoCiudades61() {
         }
     }
 
-    console.log(nuevosKDestinos);
-
     listaOrdenadosDestinos6 = nuevosKDestinos.sort((a, b) => (a.valorK > b.valorK) ? -1 : 1);
-    console.log(listaOrdenadosDestinos6);
 
     for (let index = 0; index < listaOrdenadosDestinos6.length; index++) {
         if (index < inputKD6.value) {
@@ -707,6 +704,7 @@ function formulaCosenoCiudades61() {
             listaSimilitudCiudades61.appendChild(listaK);
         }
     }
+    console.log(listaOrdenadosDestinos6);
     calcularPerfilGrupalCiudades6();
 }
 
@@ -834,12 +832,12 @@ function calcularPerfilGrupalCiudades6() {
 
     for (p = 1; p < listaOrdenadosDestinos6[0].ciudad.length; p++) {
         perfilGrupal3[p - 2] = 0;
-        //Recorrer a todas las personas
+        
         for (let index = 0; index < inputKD62.value; index++) {
             perfilGrupal3[p - 2] += parseInt(listaOrdenadosDestinos6[index].ciudad[p]);
         }
         //debe sumarse el mismo objetoA
-        perfilGrupal3[p - 2] += parseInt(objetoA[p + 2]);
+        perfilGrupal3[p - 2] += parseInt(objetoA[p]);
         //calculamos el promedio
         console.log("Suma Perfil: " + perfilGrupal3[p - 2]);
         perfilGrupal3[p - 2] = perfilGrupal3[p - 2] / (parseInt(inputKD62.value) + 1);
