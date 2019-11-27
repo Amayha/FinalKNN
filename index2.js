@@ -164,7 +164,7 @@ function successFunctionViajes(data) {
 
         s3.appendChild(opciones);
 
-        //informacion.push(arregloDeLista);
+        informacion.push(arregloDeLista);
     }
 
     //Llenar el option de la pregunta 6
@@ -182,7 +182,7 @@ function successFunctionViajes(data) {
 
         sPersona6.appendChild(opciones);
 
-        //informacion.push(arregloDeLista);
+        informacion.push(arregloDeLista);
     }
 }
 
@@ -226,7 +226,7 @@ function successFunctionDestinos(data) {
 
         sCiudades5.appendChild(opciones);
 
-        //informacionDestinos.push(arregloDeLista);
+        informacionDestinos.push(arregloDeLista);
     }
 
     //Llenar option pregunta 7
@@ -244,7 +244,7 @@ function successFunctionDestinos(data) {
 
         sCiudades7.appendChild(opciones);
 
-        //informacionDestinos.push(arregloDeLista);
+        informacionDestinos.push(arregloDeLista);
     }
 
 
