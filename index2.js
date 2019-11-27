@@ -26,6 +26,7 @@ var btnEjecutar5 = document.querySelector(".btnEjecutar5");
 var btnEjecutar51 = document.querySelector(".btnEjecutar51");
 var btnEjecutar6 = document.querySelector(".btnEjecutar6");
 var btnEjecutar61 = document.querySelector(".btnEjecutar61");
+var btnEjecutar62 = document.querySelector(".btnEjecutar62");
 var btnEjecutar7 = document.querySelector(".btnEjecutar7");
 var btnEjecutar71 = document.querySelector(".btnEjecutar71");
 
@@ -63,6 +64,7 @@ var nuevosKCiudades5 = [];
 var nuevosKCiudades51 = [];
 var nuevosKCiudades6 = [];
 var nuevosKCiudades7 = [];
+var ciudades6 = [];
 
 var listaOrdenados;
 var listaOrdenadosDestinos;
@@ -79,7 +81,7 @@ var listaSimilitudCiudades5 = document.querySelector(".lista-SimilitudCiudades5"
 var listaSimilitudCiudades51 = document.querySelector(".lista-SimilitudCiudades51");
 var listaSimilitudCiudades6 = document.querySelector(".lista-SimilitudCiudades6");
 var listaSimilitudCiudades61 = document.querySelector(".lista-SimilitudCiudades61");
-var listaSimilitudCiudades62 = document.querySelector(".lista-SimilitudCiudades62");
+var listaSimilitudCiudades62 = document.querySelector(".lista-SimilitudPersona62");
 var prinClima = document.querySelector(".prinClima");
 var listaSimilitudTelas = document.querySelector(".lista-SimilitudTelas");
 var numeroTelas = document.querySelector(".numeroTelas");
@@ -650,6 +652,7 @@ function formulaCosenoCiudades6() {
             listaK = document.createElement("li");
             listaK.innerHTML = listaOrdenadosDestinos[index].ciudad[0] + " - " + listaOrdenadosDestinos[index].valorK + "%";
             listaSimilitudCiudades6.appendChild(listaK);
+            ciudades6.push( listaOrdenadosDestinos[index]);
         }
     }
     mejorCiudad6 = listaOrdenadosDestinos[0].ciudad;
@@ -702,10 +705,67 @@ function formulaCosenoCiudades61() {
             listaK = document.createElement("li");
             listaK.innerHTML = listaOrdenadosDestinos6[index].ciudad[0] + " - " + listaOrdenadosDestinos6[index].valorK + "%";
             listaSimilitudCiudades61.appendChild(listaK);
+            ciudades6.push(listaOrdenadosDestinos6[index]);
         }
     }
-    console.log(listaOrdenadosDestinos6);
+    console.log(ciudades6);
     calcularPerfilGrupalCiudades6();
+}
+// un destino Vs todas las personas
+function formulaCosenoCiudades62() {
+
+    objetoA = perfilGrupal3;
+
+    for (let i = 0; i < informacion.length; i++) {
+        //Cada uno de los objetos del archvio CSV
+        objetoB = informacion[i];
+
+        var numerador = 0;
+        var denominadorA = 0;
+        var denominadorB = 0;
+
+        for (let index = 2; index < objetoA.length; index++) {
+            //Recorrer cada uno de los elementos (columnas de A)
+            numerador += (parseInt(objetoA[index]) * parseInt(objetoB[index - 1]));
+            //sumatori ade los cuadrados de A
+            denominadorA += (parseInt(objetoA[index]) * parseInt(objetoA[index]));
+            //sumatoria de los cuadrados de B
+            denominadorB += (parseInt(objetoB[index - 1]) * parseInt(objetoB[index - 1]));
+            //console.log( 'numerador: ' + numerador+   'A:  '+denominadorA + 'B:  '+   denominadorB);
+        }
+
+        denominadorA = Math.sqrt(denominadorA);
+        denominadorB = Math.sqrt(denominadorB);
+        var valorK = numerador / (denominadorA * denominadorB);
+        var valorFinalK = parseInt(valorK * 100);
+
+        console.log('Similitud Coseno entre:' + objetoA[0] + ' ' + 'y' + ' ' + objetoB[0] + ' ' + 'es:' + ' ' + valorFinalK + '%');
+
+        if (valorFinalK < 99) {
+
+            nuevosKCiudades.push({
+                "persona": objetoB,
+                "valorK": valorFinalK
+            });
+
+        }
+
+    }
+
+    listaOrdenados = nuevosKCiudades.sort((a, b) => (a.valorK > b.valorK) ? -1 : 1);
+    console.log("listaOrdenados");
+    console.log(listaOrdenados);
+
+    for (let index = 0; index < listaOrdenados.length; index++) {
+        if (index < inputKD62.value) {
+
+            listaK = document.createElement("li");
+
+            listaK.innerHTML = listaOrdenados[index].persona[0] + " - " + listaOrdenados[index].valorK + "%";
+            listaSimilitudCiudades62.appendChild(listaK);
+        }
+    }
+
 }
 
 function calcularClima() {
@@ -830,18 +890,17 @@ function calcularPerfilGrupalCiudades() {
 
 function calcularPerfilGrupalCiudades6() {
 
-    for (p = 1; p < listaOrdenadosDestinos6[0].ciudad.length; p++) {
+    for (p = 2; p < ciudades6[0].ciudad.length; p++) {
         perfilGrupal3[p - 2] = 0;
         
-        for (let index = 0; index < inputKD62.value; index++) {
-            perfilGrupal3[p - 2] += parseInt(listaOrdenadosDestinos6[index].ciudad[p]);
+        for (let index = 0; index < ciudades6.length; index++) {
+            perfilGrupal3[p - 2] += parseInt(ciudades6[index].ciudad[p]);
         }
-        //debe sumarse el mismo objetoA
-        perfilGrupal3[p - 2] += parseInt(objetoA[p]);
+       
         //calculamos el promedio
         console.log("Suma Perfil: " + perfilGrupal3[p - 2]);
-        perfilGrupal3[p - 2] = perfilGrupal3[p - 2] / (parseInt(inputKD62.value) + 1);
-
+        perfilGrupal3[p - 2] = perfilGrupal3[p - 2] / (ciudades6.length);
+        //console.log('perfil grupal xxxx ' + perfilGrupal3[p - 2]);
     }
     console.log('perfil grupal 3 ' + perfilGrupal3);
 }
@@ -907,5 +966,6 @@ btnEjecutar5.addEventListener('click', formulaCosenoCiudades5); // pregunta 5
 btnEjecutar51.addEventListener('click', formulaCosenoCiudades51); // pregunta 5
 btnEjecutar6.addEventListener('click', formulaCosenoCiudades6); // pregunta 6
 btnEjecutar61.addEventListener('click', formulaCosenoCiudades61); // pregunta 6
+btnEjecutar62.addEventListener('click', formulaCosenoCiudades62); // pregunta 6
 btnEjecutar7.addEventListener('click', calcularClima); // pregunta 7
 btnEjecutar71.addEventListener('click', mostrarTelas); // pregunta 7
